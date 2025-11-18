@@ -7,3 +7,8 @@
 .project_cms-item:nth-child(even) {
   transform: translateY(6rem);
 }
+
+.cta-item:nth-child(even),
+.cta-item:nth-child(even) {
+  transform: translateY(6rem);
+}
