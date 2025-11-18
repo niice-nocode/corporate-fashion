@@ -1,0 +1,36 @@
+[data-gsap-slider-init] {
+  --slider-status: on; /* Turn slider on/off */
+  --slider-spv: 3; /* Slides per view */ 
+  --slider-gap: 2rem; /* Slides Gap */
+}
+
+@media screen and (max-width: 991px) {
+   [data-gsap-slider-init] {
+    --slider-status: on; /* Turn slider on/off */
+    --slider-spv: 2.25; /* Slides per view */ 
+    --slider-gap: 1.5rem; /* Slides Gap */
+  } 
+}
+
+@media screen and (max-width: 767px) {
+  [data-gsap-slider-init] { 
+    --slider-status: on; /* Turn slider on/off */
+    --slider-spv: 1.15; /* Slides per view */ 
+    --slider-gap: 1rem; /* Gap */
+  }
+}
+
+[data-gsap-slider-item]:last-child {
+  margin-right: 0;
+}
+
+
+/* Swiper */
+
+.slider_item-inner {
+  transition: all 0.3s ease;
+}
+
+[data-gsap-slider-item-status="not-active"] .slider_item-inner {
+  background-color: #131313;
+}
