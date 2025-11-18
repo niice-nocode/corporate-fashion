@@ -7,3 +7,4 @@ import './vimeo.js';
 import './logos.js';
 import './marquee.js';
 import './parallax.js';
+import './mobile-navigation.js';
