@@ -1,0 +1,9 @@
+.grid_item:nth-child(even),
+.grid_item:nth-child(even) {
+  transform: translateY(6rem);
+}
+
+.project_cms-item:nth-child(even),
+.project_cms-item:nth-child(even) {
+  transform: translateY(6rem);
+}
