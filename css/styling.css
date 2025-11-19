@@ -12,3 +12,9 @@
 .cta-item:nth-child(even) {
   transform: translateY(6rem);
 }
+
+.case_button {
+  position: absolute;
+  pointer-events: none; /* Belangrijk: zorgt dat button de hover niet blokkeert */
+  z-index: 10;
+}
