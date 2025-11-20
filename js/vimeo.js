@@ -35,9 +35,6 @@ function initVimeoBGVideo() {
 
     // Function to adjust video sizing
     function adjustVideoSizing() {
-      // Skip als er een GSAP animatie actief is op dit element
-      if (typeof gsap !== 'undefined' && gsap.isTweening(vimeoElement)) return;
-      
       const containerAspectRatio = (vimeoElement.offsetHeight / vimeoElement.offsetWidth) * 100;
 
       const iframeWrapper = vimeoElement.querySelector('.vimeo-bg__iframe-wrapper');
@@ -64,17 +61,6 @@ function initVimeoBGVideo() {
 
     // Adjust video sizing on resize
     window.addEventListener('resize', adjustVideoSizing);
-
-    // NIEUW: Force resize na GSAP animatie compleet
-    if (typeof gsap !== 'undefined') {
-      // Gebruik MutationObserver om te detecteren wanneer GSAP klaar is
-      const observer = new MutationObserver(function() {
-        if (!gsap.isTweening(vimeoElement)) {
-          adjustVideoSizing();
-        }
-      });
-      observer.observe(vimeoElement, { attributes: true, attributeFilter: ['style'] });
-    }
 
     // Loaded
     player.on('play', function() {
@@ -136,7 +122,7 @@ function initVimeoBGVideo() {
         // If paused by user => kill the scroll-based autoplay
         if (vimeoElement.getAttribute('data-vimeo-autoplay') === 'true') {
           vimeoElement.setAttribute('data-vimeo-paused-by-user', 'true');
-          // Removing scroll listener (if you'd like)
+          // Removing scroll listener (if you’d like)
           window.removeEventListener('scroll', checkVisibility);
         }
       });
