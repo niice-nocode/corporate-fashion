@@ -3,7 +3,7 @@
   .grid_item:nth-child(even) {
     transform: translateY(6rem);
   }
-  
+
 @media (min-width: 768px) {
   .project_cms-item:nth-child(even),
   .project_cms-item:nth-child(even) {
@@ -20,4 +20,14 @@
   position: absolute;
   pointer-events: none; /* Belangrijk: zorgt dat button de hover niet blokkeert */
   z-index: 10;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: #FFFFFF;
+  background: #0D9EED;
+}
+
+::selection {
+  color: #FFFFFF;
+  background: #0D9EED;
 }
