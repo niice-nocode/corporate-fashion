@@ -35,6 +35,11 @@ function initVimeoBGVideo() {
 
     // Function to adjust video sizing
     function adjustVideoSizing() {
+      // Skip resize adjustments if explicitly ignored (during animations)
+      if (vimeoElement.getAttribute('data-vimeo-ignore-resize') === 'true') {
+        return;
+      }
+
       const containerAspectRatio = (vimeoElement.offsetHeight / vimeoElement.offsetWidth) * 100;
 
       const iframeWrapper = vimeoElement.querySelector('.vimeo-bg__iframe-wrapper');
@@ -46,7 +51,7 @@ function initVimeoBGVideo() {
         }
       }
     }
-    
+
     // Adjust video sizing initially
     if (vimeoElement.getAttribute('data-vimeo-update-size') === 'true') {
       adjustVideoSizing();
@@ -59,8 +64,23 @@ function initVimeoBGVideo() {
       adjustVideoSizing();
     }
 
-    // Adjust video sizing on resize
-    window.addEventListener('resize', adjustVideoSizing);
+    // Only adjust on actual window resize, not during GSAP animations
+    let lastWindowWidth = window.innerWidth;
+    let resizeTimeout;
+
+    function handleWindowResize() {
+      const currentWindowWidth = window.innerWidth;
+
+      // Only run if actual window size changed (not GSAP element animation)
+      if (currentWindowWidth !== lastWindowWidth) {
+        lastWindowWidth = currentWindowWidth;
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustVideoSizing, 100);
+      }
+    }
+
+    // Adjust video sizing on window resize only
+    window.addEventListener('resize', handleWindowResize);
 
     // Loaded
     player.on('play', function() {
