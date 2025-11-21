@@ -25,7 +25,8 @@ function initSideNavWipeEffect(){
   
   const openNav = () =>{
     navWrap.setAttribute("data-nav-state", "open");
-    
+    menu.style.position = "fixed";
+
     tl.clear()
     .set(navWrap,{display:"block"})
     .set(menu,{xPercent:0},"<")
@@ -39,7 +40,8 @@ function initSideNavWipeEffect(){
   
   const closeNav = () =>{
     navWrap.setAttribute("data-nav-state", "closed");
-    
+    menu.style.position = "";
+
     tl.clear()
     .to(overlay,{autoAlpha:0})
     .to(menu,{xPercent:120},"<")
