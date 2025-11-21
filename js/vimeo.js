@@ -19,7 +19,8 @@ function initVimeoBGVideo() {
     const player = new Vimeo.Player(iframeID);
 
     let videoAspectRatio;
-    
+    let lastWindowWidth = window.innerWidth;
+
     // Update Aspect Ratio if [data-vimeo-update-size="true"]
     if (vimeoElement.getAttribute('data-vimeo-update-size') === 'true') {
       player.getVideoWidth().then(function(width) {
@@ -52,6 +53,23 @@ function initVimeoBGVideo() {
       }
     }
 
+    // Lock aspect ratio during animations by monitoring container dimensions
+    let lastContainerWidth = vimeoElement.offsetWidth;
+    const resizeObserver = new ResizeObserver(() => {
+      const currentWidth = vimeoElement.offsetWidth;
+
+      // If width changed but window didn't resize, likely a GSAP animation
+      if (currentWidth !== lastContainerWidth && window.innerWidth === lastWindowWidth) {
+        // Don't recalculate during animations
+        return;
+      }
+
+      lastContainerWidth = currentWidth;
+      adjustVideoSizing();
+    });
+
+    resizeObserver.observe(vimeoElement);
+
     // Adjust video sizing initially
     if (vimeoElement.getAttribute('data-vimeo-update-size') === 'true') {
       adjustVideoSizing();
@@ -65,7 +83,6 @@ function initVimeoBGVideo() {
     }
 
     // Only adjust on actual window resize, not during GSAP animations
-    let lastWindowWidth = window.innerWidth;
     let resizeTimeout;
 
     function handleWindowResize() {
