@@ -26,6 +26,11 @@ function initSideNavWipeEffect(){
   const openNav = () =>{
     navWrap.setAttribute("data-nav-state", "open");
     menu.style.position = "fixed";
+    menu.style.top = "0";
+    menu.style.right = "0";
+    menu.style.bottom = "0";
+    menu.style.width = "100%";
+    menu.style.height = "100vh";
 
     tl.clear()
     .set(navWrap,{display:"block"})
@@ -41,6 +46,11 @@ function initSideNavWipeEffect(){
   const closeNav = () =>{
     navWrap.setAttribute("data-nav-state", "closed");
     menu.style.position = "";
+    menu.style.top = "";
+    menu.style.right = "";
+    menu.style.bottom = "";
+    menu.style.width = "";
+    menu.style.height = "";
 
     tl.clear()
     .to(overlay,{autoAlpha:0})
